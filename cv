@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Systems Architect Portfolio – Faisal Sayed</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --ink: #0f0f0d;
+    --gold: #c9a84c;
+    --gold-light: #e8d49a;
+    --muted: #7a7165;
+    --border: rgba(15,15,13,0.1);
+    --accent: #1a1a18;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── SIDE RULE ── */
+  .side-rule {
+    position: fixed;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+    opacity: 0.35;
+    z-index: 10;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px 20px 80px;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HAMBURGER ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: all 0.3s ease;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(245,240,232,0.97);
+    backdrop-filter: blur(16px);
+    z-index: 99;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    padding: 80px 60px 80px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-role {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    max-width: 400px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .tag:hover {
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  .hero-right {
+    padding: 80px 80px 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 48px;
+  }
+
+  .stat-block {
+    border-left: 2px solid var(--gold);
+    padding-left: 24px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 100px 100px 140px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .about-text {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #3a3830;
+  }
+
+  .about-text p + p { margin-top: 20px; }
+
+  .about-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .contact-value {
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-meta {
+    padding-top: 4px;
+  }
+
+  .timeline-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .timeline-company {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .timeline-loc {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+  }
+
+  .timeline-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .timeline-content p {
+    font-size: 14px;
+    color: #4a4840;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .achievement-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .achievement-list li {
+    font-size: 13px;
+    color: #3a3830;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .achievement-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 11px;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 40px 32px;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .skill-card:hover { background: var(--gold); color: var(--ink); }
+
+  .skill-card-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .skill-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .skill-card-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .skill-card-list li {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+  }
+
+  /* ── KPIs ── */
+  .kpi-marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+    margin-bottom: 64px;
+  }
+
+  .kpi-marquee {
+    display: flex;
+    gap: 64px;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  .kpi-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .kpi-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .kpi-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── TOOLS ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .tool-item {
+    background: var(--cream);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .tool-item:hover { background: #ede8df; }
+
+  .tool-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .tool-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .project-card {
+    padding: 48px 40px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { border-color: var(--gold); }
+
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: #5a5650;
+    line-height: 1.8;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 60px 100px 60px 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 16px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .footer-cta:hover { background: var(--gold); color: var(--ink); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ═══════════════════════════════════
+     RESPONSIVE — TABLET (≤ 1024px)
+  ═══════════════════════════════════ */
+  @media (max-width: 1024px) {
+    section { padding: 80px 60px 80px 80px; }
+    .hero-left { padding: 80px 40px 80px 80px; }
+    .hero-right { padding: 60px 60px 60px 40px; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .tools-grid { grid-template-columns: repeat(3, 1fr); }
+    .timeline-item { grid-template-columns: 180px 1fr; gap: 32px; }
+    footer { padding: 60px 60px 60px 80px; }
+  }
+
+  /* ═══════════════════════════════════
+     RESPONSIVE — MOBILE (≤ 768px)
+  ═══════════════════════════════════ */
+  @media (max-width: 768px) {
+    .side-rule { display: none; }
+
+    nav {
+      padding: 16px 20px;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      max-width: 160px;
+    }
+
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 70px;
+    }
+
+    .hero-left {
+      padding: 48px 24px 40px 24px;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-name {
+      font-size: clamp(44px, 12vw, 64px);
+      margin-bottom: 16px;
+    }
+
+    .hero-eyebrow {
+      font-size: 9px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    .hero-role {
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+
+    .hero-tags { gap: 6px; }
+
+    .tag {
+      font-size: 9px;
+      padding: 5px 10px;
+    }
+
+    .hero-right {
+      padding: 40px 24px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .stat-block { flex: 1 1 120px; }
+
+    .stat-number { font-size: 40px; }
+
+    section {
+      padding: 56px 24px;
+    }
+
+    .section-header { margin-bottom: 40px; }
+
+    .section-title { font-size: 28px; }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .about-text { font-size: 15px; }
+
+    .kpi-marquee-wrap { margin-bottom: 48px; }
+
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 36px 0;
+    }
+
+    .timeline-content h3 { font-size: 18px; }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+
+    .skill-card { padding: 32px 24px; }
+
+    .tools-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tool-item { padding: 20px 16px; }
+
+    .tool-name { font-size: 14px; }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+
+    .project-card { padding: 36px 24px; }
+
+    .project-title { font-size: 20px; }
+
+    footer {
+      flex-direction: column;
+      gap: 32px;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .footer-name { font-size: 28px; }
+  }
+
+  /* ═══════════════════════════════════
+     RESPONSIVE — SMALL MOBILE (≤ 400px)
+  ═══════════════════════════════════ */
+  @media (max-width: 400px) {
+    .hero-name { font-size: 38px; }
+    .stat-number { font-size: 34px; }
+    .section-title { font-size: 24px; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .hero-right { flex-direction: column; gap: 24px; }
+    .stat-block { flex: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="side-rule"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">CRM · E-Commerce · Automation · D2C</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#experience" class="mobile-nav-link">Experience</a>
+  <a href="#skills" class="mobile-nav-link">Skills</a>
+  <a href="#projects" class="mobile-nav-link">Projects</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" style="border-top:none; padding:0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">CRM Systems Architect & E-Commerce Specialist</div>
+    <h1 class="hero-name"><em>Faisal Sayed</em></h1>
+    <p class="hero-role">CRM Architecture · Customer Journey Design · Multi-Channel Automation · D2C E-Commerce · AI/ML Integration</p>
+    <div class="hero-tags">
+      <span class="tag">HubSpot</span>
+      <span class="tag">Zoho CRM</span>
+      <span class="tag">BIK.AI</span>
+      <span class="tag">Salesforce</span>
+      <span class="tag">Klaviyo</span>
+      <span class="tag">WhatsApp / SMS / Email</span>
+      <span class="tag">Shopify</span>
+      <span class="tag">AI/ML Personalisation</span>
+      <span class="tag">MIS Automation</span>
+      <span class="tag">Google Analytics 4</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-block fade-in" style="animation-delay:0.1s">
+      <div class="stat-number">9+</div>
+      <div class="stat-label">Years in E-Commerce CRM</div>
+    </div>
+    <div class="stat-block fade-in" style="animation-delay:0.2s">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Journeys Architected</div>
+    </div>
+    <div class="stat-block fade-in" style="animation-delay:0.3s">
+      <div class="stat-number">D2C</div>
+      <div class="stat-label">Full-Stack CRM Owner</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-in">
+    <span class="section-number">01</span>
+    <h2 class="section-title">About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>A results-driven CRM Systems Architect & D2C E-Commerce specialist with <strong>9+ years of hands-on experience</strong> designing, implementing, and optimising customer relationship management systems across the full Shopify and multi-channel ecosystem.</p>
+      <p>With deep expertise in <strong>CRM architecture, customer journey design, and marketing automation</strong>, I bring a rare blend of technical depth and commercial acumen — building automated lifecycle campaigns across Email, WhatsApp, SMS, RCS, and Web Push, integrating AI/ML-driven personalisation, and owning every touchpoint of the consumer journey from acquisition to retention.</p>
+      <p>I thrive as an <strong>individual project handler</strong> — managing end-to-end CRM deliverables independently while collaborating fluidly with marketing, tech, and product teams to drive measurable retention growth and revenue impact.</p>
+    </div>
+    <div class="about-contact fade-in">
+      <div class="contact-row">
+        <span class="contact-label">Location</span>
+        <span class="contact-value">Jogeshwari-E, Mumbai</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">Contact Number</span>
+        <span class="contact-value">8898390089</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">DOB</span>
+        <span class="contact-value">28-01-1993</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">EDUCATION</span>
+        <span class="contact-value">BCA / 2015-2016</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">Faisalsayed040@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI MARQUEE -->
+<div class="kpi-marquee-wrap">
+  <div class="kpi-marquee">
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Customer Journey Design</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Multi-Channel Campaigns</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Retention & Lifecycle</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">AI/ML Personalisation</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">CRM Integrations</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Vendor Management</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Daily Automation Ops</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Data-Driven Reporting</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Customer Journey Design</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">WhatsApp / SMS / Email</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Retention & Lifecycle</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">AI/ML Personalisation</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">CRM Integrations</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Vendor Management</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Daily Automation Ops</span></div>
+    <div class="kpi-item"><span class="kpi-dot"></span><span class="kpi-text">Data-Driven Reporting</span></div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-in">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Experience</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-meta">
+        <div class="timeline-year">2025 – Present</div>
+        <div class="timeline-company">Ecommerce Agency</div>
+        <div class="timeline-loc">Mumbai, India</div>
+      </div>
+      <div class="timeline-content">
+        <h3>CRM Systems Architect</h3>
+        <p>Own end-to-end CRM architecture and customer journey design for D2C brands — from lifecycle campaign strategy and multi-channel automation to AI/ML-driven personalisation, system integrations, and performance reporting.</p>
+        <ul class="achievement-list">
+          <li>Architected and maintained daily automation workflows across Email, WhatsApp, SMS, and Web Push — driving measurable improvements in customer engagement and retention.</li>
+          <li>Designed detailed customer lifecycle journeys spanning acquisition, onboarding, upsell, winback, and loyalty stages across all key touchpoints.</li>
+          <li>Built and deployed campaign templates for Email, WhatsApp, SMS, RCS, and push notifications; ensured brand-consistent, high-converting messaging at every stage.</li>
+          <li>Led CRM vendor management and coordinated with BIK.AI, Klaviyo, and Zoho partners to align platform capabilities with business goals.</li>
+          <li>Trained and implemented AI/ML models for predictive customer segmentation and personalisation — improving campaign relevance and open rates.</li>
+          <li>Delivered weekly and monthly CRM performance reports covering retention rates, campaign ROI, customer feedback scores, and sales attribution to leadership.</li>
+          <li>Managed Unicommerce and Zoho integrations for seamless inventory sync, order data, and CRM data pipeline continuity.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-meta">
+        <div class="timeline-year">2020 – 2025</div>
+        <div class="timeline-company">Purple Style Labs pvt ltd</div>
+        <div class="timeline-loc">Mumbai, India</div>
+      </div>
+      <div class="timeline-content">
+        <h3>E-Commerce CRM Manager</h3>
+        <p>Led CRM operations and marketing automation for a large-scale D2C fashion brand, managing multi-channel campaigns, customer lifecycle journeys, and cross-functional data reporting across Shopify and marketplace channels.</p>
+        <ul class="achievement-list">
+          <li>Planned and executed multi-channel CRM campaigns (email, SMS, push) with a focus on lifecycle retention and AOV improvement.</li>
+          <li>Built automated MIS reporting and reconciliation pipelines — reducing manual effort by 70% and enabling daily data-driven decisions.</li>
+          <li>Developed internal web applications to streamline catalogue, order, and CRM data workflows across teams.</li>
+          <li>Tracked retention KPIs, campaign performance, and customer feedback using Google Analytics 4 and Shopify reports; presented weekly insights to leadership.</li>
+          <li>Coordinated with external CRM vendors and platform teams to ensure integrations and campaign quality met brand standards.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-meta">
+        <div class="timeline-year">2018 – 2020</div>
+        <div class="timeline-company">Ergode IT services pvt ltd</div>
+        <div class="timeline-loc">Mumbai, India</div>
+      </div>
+      <div class="timeline-content">
+        <h3>E-Commerce & Operations Coordinator</h3>
+        <p>Began career in e-commerce operations, building foundational expertise in customer engagement, digital merchandising, campaign execution, and platform administration.</p>
+        <ul class="achievement-list">
+          <li>Supported execution of email campaigns, discount codes, bundling offers, and seasonal promotions across the Shopify storefront.</li>
+          <li>Assisted in website content updates, banners, and promotional landing pages aligned with campaign calendars.</li>
+          <li>Ensured mobile experience and page-load performance standards were consistently met, improving customer engagement metrics.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-in">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Capabilities</h2>
+  </div>
+  <div class="skills-grid fade-in">
+    <div class="skill-card">
+      <div class="skill-card-icon">🔗</div>
+      <div class="skill-card-title">CRM Architecture</div>
+      <ul class="skill-card-list">
+        <li>HubSpot, Zoho, BIK.AI, Salesforce</li>
+        <li>System design & implementation</li>
+        <li>CRM data modelling</li>
+        <li>Integration & API management</li>
+        <li>Technical troubleshooting</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🗺</div>
+      <div class="skill-card-title">Customer Journeys</div>
+      <ul class="skill-card-list">
+        <li>Full lifecycle journey design</li>
+        <li>Onboarding & activation flows</li>
+        <li>Upsell & winback sequences</li>
+        <li>Loyalty & retention programmes</li>
+        <li>Cross-channel touchpoint mapping</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📣</div>
+      <div class="skill-card-title">Multi-Channel Campaigns</div>
+      <ul class="skill-card-list">
+        <li>Email, WhatsApp, SMS, RCS</li>
+        <li>Web & mobile push notifications</li>
+        <li>Template design & copywriting</li>
+        <li>Campaign planning & execution</li>
+        <li>A/B testing & optimisation</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🤖</div>
+      <div class="skill-card-title">AI/ML & Personalisation</div>
+      <ul class="skill-card-list">
+        <li>Predictive segmentation models</li>
+        <li>AI/ML model training & deployment</li>
+        <li>Behavioural personalisation</li>
+        <li>Propensity scoring</li>
+        <li>Dynamic content automation</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📊</div>
+      <div class="skill-card-title">Analytics & Reporting</div>
+      <ul class="skill-card-list">
+        <li>Retention & cohort analysis</li>
+        <li>Google Analytics 4</li>
+        <li>MIS automation & dashboards</li>
+        <li>Customer feedback tracking</li>
+        <li>Sales attribution reporting</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">⚙️</div>
+      <div class="skill-card-title">Automation & Dev</div>
+      <ul class="skill-card-list">
+        <li>Workflow automation pipelines</li>
+        <li>Reconciliation automation</li>
+        <li>Internal web apps (HTML/CSS/JS)</li>
+        <li>Python & Apps Script</li>
+        <li>Zoho & Unicommerce APIs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section>
+  <div class="section-header fade-in">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Tools & Platforms</h2>
+  </div>
+  <div class="tools-grid fade-in">
+    <div class="tool-item">
+      <div class="tool-name">HubSpot</div>
+      <div class="tool-category">CRM Platform</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Zoho CRM</div>
+      <div class="tool-category">CRM & Inventory</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">BIK.AI</div>
+      <div class="tool-category">Conversational CRM</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Salesforce</div>
+      <div class="tool-category">Enterprise CRM</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Klaviyo</div>
+      <div class="tool-category">Email & SMS Automation</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Shopify</div>
+      <div class="tool-category">E-Commerce Platform</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Google Analytics 4</div>
+      <div class="tool-category">Analytics</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">WhatsApp Business API</div>
+      <div class="tool-category">Conversational Marketing</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Unicommerce</div>
+      <div class="tool-category">Inventory & OMS</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">HTML / CSS / JS / Python</div>
+      <div class="tool-category">Web Development</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">MIS Automation</div>
+      <div class="tool-category">Custom Reporting</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-name">Excel / Google Sheets</div>
+      <div class="tool-category">Data & Reporting</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-in">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Signature Projects</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <div class="project-tag">CRM · Customer Journeys</div>
+      <div class="project-title">Full Lifecycle CRM Architecture</div>
+      <div class="project-desc">Designed and implemented an end-to-end CRM architecture for a D2C brand — covering acquisition, onboarding, upsell, winback, and loyalty journeys across Email, WhatsApp, SMS, and Web Push. Delivered a fully automated lifecycle system with zero-human-intervention daily execution.</div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-tag">AI/ML · Personalisation</div>
+      <div class="project-title">Predictive Segmentation & AI Personalisation Engine</div>
+      <div class="project-desc">Trained and deployed AI/ML models for predictive customer segmentation and dynamic content personalisation — improving campaign open rates and driving measurable uplift in repeat purchase rate over a 3-month rollout period.</div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-tag">Automation · MIS</div>
+      <div class="project-title">CRM Reporting & Reconciliation Automation</div>
+      <div class="project-desc">Built automated reporting pipelines pulling data from CRM platforms, Shopify, and payment gateways — eliminating 70% of manual reconciliation effort. Daily retention, campaign performance, and sales attribution reports are now generated with zero human intervention.</div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-tag">Multi-Channel · Campaigns</div>
+      <div class="project-title">Multi-Channel Campaign Management Programme</div>
+      <div class="project-desc">Planned and executed structured multi-channel campaigns across Email, WhatsApp, SMS, RCS, and push — including A/B tests on messaging, send-time optimisation, and personalised offers. Delivered consistent CVR and AOV uplift over multiple campaign cycles.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Let's Build<br><em style="font-style:italic; color:var(--gold)">Together.</em></div>
+  <a href="#about" class="footer-cta">Hire me →</a>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
+</body>
+</html>
